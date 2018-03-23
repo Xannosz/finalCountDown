@@ -18,7 +18,7 @@ public class Main extends JWindow {
 	private JLabel panel = new JLabel();
 	private SimpleDateFormat sdf;
 
-	private Main(String str) throws ParseException {
+	private Main(String str) throws ParseException, InterruptedException {
 
 		sdf = new SimpleDateFormat("MM/dd/yyyy");
 		time = sdf.parse(str);
@@ -34,18 +34,17 @@ public class Main extends JWindow {
 		setLocation(0, 730);
 
 		add(panel);
+
+		while (true) {
+			refresh();
+			Thread.sleep(5L);
+		}
 	}
 
 	public static void main(String[] args) {
-		Main main;
 		try {
-			main = new Main("04/30/2018");
-			while (true) {
-				main.refresh();
-				Thread.sleep(5L);
-			}
+			new Main("04/30/2018");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
